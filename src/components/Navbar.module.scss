@@ -1,0 +1,40 @@
+.navbar {
+    width: 100%;
+    background: $color-dark-grey;
+    padding: 20px 10px;
+    box-sizing: border-box;
+
+    &__title {
+        margin-right: auto;
+        font-weight: bold;
+        letter-spacing: 1px;
+        font-size: 1.2em;
+
+        & a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    }
+
+    &__icon {
+        font-size: 40px;
+    }
+
+    & ul {
+        display: flex;
+        margin: 0 auto;
+        width: 90%;
+        align-items: center;
+    }
+
+    & button,
+    & a {
+        margin-left: 16px;
+    }
+
+    & a {
+        color: $color-light-green;
+        text-decoration: none;
+    }
+}
