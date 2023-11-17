@@ -1,16 +1,28 @@
 import { useState } from "react"
 import styles from "./Signup.module.scss"
+import { useSignup } from "../../hooks/useSignup"
+import { useNavigate } from "react-router-dom"
 
 export default function Signup() {
 
-
+    //state
     const [name, setName] = useState<string>("")
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>('')
+    //router
+    const navigate = useNavigate()
+    //hooks
+    const { signup, error, loading } = useSignup()
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        console.log(email, password);
+
+        signup(email, password, name)
+
+        if (!error) {
+            navigate("/")
+        }
+
     }
 
 
@@ -50,8 +62,14 @@ export default function Signup() {
                             placeholder="○○○○○○○○"
                         />
                     </label>
-                    <button className="form-btn">Signup</button>
+                    {loading ?
+                        <button className="form-btn" disabled>Loading...</button>
+                        :
+                        <button className="form-btn">Signup</button>
+                    }
+
                 </form>
+                {error && <p className="error">{error}</p>}
             </div>
         </>
 
