@@ -1,17 +1,30 @@
 import styles from "./Login.module.scss"
 import { useState } from "react"
+import { useLogin } from "../../hooks/useLogin"
+// import { useAuthContext } from "../../hooks/useAuthContext"
+// import { useNavigate } from "react-router-dom"
 
 export default function Login() {
-
+    //state
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>('')
 
+    //hooks
+    const { login, error, loading } = useLogin()
+    // const { user } = useAuthContext()
+
+    //route
+    // const navigate = useNavigate()
+
+    //functions
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        console.log(email, password);
+
+        login(email, password);
+        // if (user) {
+        //     navigate("/")
+        // }
     }
-
-
 
 
 
@@ -40,8 +53,12 @@ export default function Login() {
                             placeholder="○○○○○○○○"
                         />
                     </label>
-
-                    <button className="form-btn">Login</button>
+                    {loading ?
+                        <button className="form-btn" disabled style={{ opacity: ".5" }}>Loading...</button>
+                        :
+                        <button className="form-btn">Login</button>
+                    }
+                    {error && <p className="error">{error}</p>}
                 </form>
             </div>
         </>

@@ -7,7 +7,7 @@ import { useAuthContext } from "./useAuthContext"
 
 
 export const useSignup = () => {
-    const [isCancelled, setIsCanselled] = useState<boolean>(false)
+    const [isCancelled, setIsCancelled] = useState<boolean>(false)
     const [error, setError] = useState<null | string>(null)
     const [loading, setLoading] = useState<boolean>(false)
     const { dispatch } = useAuthContext()
@@ -19,8 +19,6 @@ export const useSignup = () => {
 
         try {
             const res = await createUserWithEmailAndPassword(auth, email, password)
-            console.log(res);
-
 
             if (!res) {
                 throw new Error("Could not complete signup")
@@ -41,7 +39,7 @@ export const useSignup = () => {
 
 
         } catch (err) {
-            console.log((err as Error).message);
+
             if (!isCancelled) {
                 setError((err as Error).message)
                 setLoading(false)
@@ -54,7 +52,8 @@ export const useSignup = () => {
     // if the component that uses useSignup(async) unmountes while waiting for response the state which is used in that components cant be changed
     // therefore we only change the state while the components is mounted (while isCancelled is false)
     useEffect(() => {
-        return () => setIsCanselled(true) //whenever the component unmounts this return function will be called
+        setIsCancelled(false)
+        return () => setIsCancelled(true) //whenever the component unmounts this return function will be called
     }, [])
 
     return { signup, error, loading }

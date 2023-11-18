@@ -1,19 +1,31 @@
-import { ReactNode, createContext, useReducer } from "react";
+import { ReactNode, createContext, useEffect, useReducer } from "react";
+
+//firebase
+import { auth } from "../firebase/config";
+import { onAuthStateChanged } from "firebase/auth";
+
+//interfaces
 import UserState from "../interfaces/UserState";
 import UserAction from "../interfaces/UserAction";
 import UserObject from "../interfaces/UserObject";
 
 
+//context
+export const AuthContext = createContext<{ user: UserObject | null, authReady: boolean, dispatch: React.Dispatch<UserAction> }>({
 
-export const AuthContext = createContext<{ dispatch: React.Dispatch<UserAction>, user: UserObject | null }>({
+    user: null,
+    authReady: false,
+
     dispatch: (action: UserAction) => {
         console.log(`Not implemented dispatch for: ${action}`)
     },
-    user: null
 })
 
+//reducer for dispatch
 const authReducer = (state: UserState, action: UserAction) => {
     switch (action.type) {
+        case "AUTH_READY":
+            return { ...state, user: action.payload, authReady: true } as UserState
         case "LOGIN":
             return { ...state, user: action.payload } as UserState
         case "LOGOUT":
@@ -23,11 +35,22 @@ const authReducer = (state: UserState, action: UserAction) => {
     }
 }
 
+
+//context provider
 export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, {
-        user: null
+        user: null,
+        authReady: false
     })
-    console.log("auth context state:", state);
+    // console.log("auth context state:", state);
+
+    useEffect(() => { //checks if the user is logged in when you first load the page; after that we stop listening for "onAuthStateChanged"
+        const unsub = onAuthStateChanged(auth, (user) => {
+            dispatch({ type: "AUTH_READY", payload: user })
+            unsub()
+        })
+
+    }, [])
 
 
 

@@ -63,13 +63,12 @@ export default function Signup() {
                         />
                     </label>
                     {loading ?
-                        <button className="form-btn" disabled>Loading...</button>
+                        <button className="form-btn" disabled style={{ opacity: ".5" }}>Loading...</button>
                         :
                         <button className="form-btn">Signup</button>
                     }
-
+                    {error && <p className="error">{error}</p>}
                 </form>
-                {error && <p className="error">{error}</p>}
             </div>
         </>
 

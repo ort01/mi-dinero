@@ -1,45 +1,42 @@
 import { useEffect, useState } from "react"
 import { auth } from "../firebase/config"
 import { useAuthContext } from "./useAuthContext"
-import { signOut } from "firebase/auth"
+import { signInWithEmailAndPassword } from "firebase/auth"
 
-export const useLogout = () => {
+export const useLogin = () => {
     const [isCancelled, setIsCancelled] = useState<boolean>(false)
     const [error, setError] = useState<null | string>(null)
     const [loading, setLoading] = useState<boolean>(false)
     const { dispatch } = useAuthContext()
 
-
-    const logout = async () => {
+    const login = async (email: string, password: string) => {
         setError(null)
         setLoading(true)
 
-
         try {
-            //sign user out
-            await signOut(auth)
-            // dispatch logout action
-            dispatch({ type: "LOGOUT", payload: null })
+            const res = await signInWithEmailAndPassword(auth, email, password)
+
+            dispatch({ type: "LOGIN", payload: res.user })
 
             if (!isCancelled) {
-                setLoading(false)
                 setError(null)
+                setLoading(false)
             }
-
-        } catch (err) {
+        }
+        catch (err) {
             if (!isCancelled) {
                 setError((err as Error).message)
                 setLoading(false)
             }
         }
+
     }
 
-    //cleanup function
     useEffect(() => {
         setIsCancelled(false)
-        return () => setIsCancelled(true) //whenever the component unmounts this function will be called
+        return () => setIsCancelled(true)
     }, [])
 
+    return { login, error, loading }
 
-    return { logout, error, loading }
 }
