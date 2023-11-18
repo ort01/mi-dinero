@@ -1,7 +1,7 @@
 import { useState } from "react"
 import styles from "./Signup.module.scss"
 import { useSignup } from "../../hooks/useSignup"
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 
 export default function Signup() {
 
@@ -10,7 +10,7 @@ export default function Signup() {
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>('')
     //router
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     //hooks
     const { signup, error, loading } = useSignup()
 
@@ -19,9 +19,9 @@ export default function Signup() {
 
         signup(email, password, name)
 
-        if (!error) {
-            navigate("/")
-        }
+        // if (!error) {
+        //     navigate("/")
+        // }
 
     }
 

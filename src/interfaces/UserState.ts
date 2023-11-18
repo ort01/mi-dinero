@@ -1,3 +1,5 @@
+import UserObject from "./UserObject";
+
 export default interface UserState {
-    user: null | object;
+    user: null | UserObject;
 }
