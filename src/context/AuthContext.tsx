@@ -27,6 +27,8 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     const [state, dispatch] = useReducer(authReducer, {
         user: null
     })
+    console.log("auth context state:", state);
+
 
 
 

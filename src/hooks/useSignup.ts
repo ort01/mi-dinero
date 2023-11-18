@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { auth } from "../firebase/config"
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
 import { useAuthContext } from "./useAuthContext"
@@ -7,7 +7,7 @@ import { useAuthContext } from "./useAuthContext"
 
 
 export const useSignup = () => {
-
+    const [isCancelled, setIsCanselled] = useState<boolean>(false)
     const [error, setError] = useState<null | string>(null)
     const [loading, setLoading] = useState<boolean>(false)
     const { dispatch } = useAuthContext()
@@ -34,17 +34,28 @@ export const useSignup = () => {
             //dispatch login action
             dispatch({ type: "LOGIN", payload: res.user })
 
-            setLoading(false)
-            setError(null)
+            if (!isCancelled) {
+                setLoading(false)
+                setError(null)
+            }
 
 
         } catch (err) {
             console.log((err as Error).message);
-            setError((err as Error).message)
-            setLoading(false)
+            if (!isCancelled) {
+                setError((err as Error).message)
+                setLoading(false)
+            }
         }
 
     }
+
+    //cleanup function; when updating the local state (error, loading) in async function
+    // if the component that uses useSignup(async) unmountes while waiting for response the state which is used in that components cant be changed
+    // therefore we only change the state while the components is mounted (while isCancelled is false)
+    useEffect(() => {
+        return () => setIsCanselled(true) //whenever the component unmounts this return function will be called
+    }, [])
 
     return { signup, error, loading }
 }
