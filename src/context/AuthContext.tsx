@@ -36,7 +36,9 @@ const authReducer = (state: UserState, action: UserAction) => {
 }
 
 
-//context provider
+
+
+//context provider; its used in main.tsx
 export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, {
         user: null,
@@ -44,8 +46,8 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
     })
     // console.log("auth context state:", state);
 
-    useEffect(() => { //checks if the user is logged in when you first load the page; after that we stop listening for "onAuthStateChanged"
-        const unsub = onAuthStateChanged(auth, (user) => {
+    useEffect(() => { //checks if the user is logged in when you first load the page; after that we stop listening for "onAuthStateChanged" by calling unsub()
+        const unsub = onAuthStateChanged(auth, (user) => { //we get the user object in callback
             dispatch({ type: "AUTH_READY", payload: user })
             unsub()
         })

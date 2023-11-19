@@ -4,6 +4,7 @@ import App from './App.tsx'
 import './index.scss'
 import { AuthContextProvider } from './context/AuthContext.tsx'
 
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <AuthContextProvider>
