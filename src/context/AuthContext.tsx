@@ -10,7 +10,7 @@ import UserAction from "../interfaces/UserAction";
 import UserObject from "../interfaces/UserObject";
 
 
-//context
+//context ------ default state (if we dont have acces to internet) ----------
 export const AuthContext = createContext<{ user: UserObject | null, authReady: boolean, dispatch: React.Dispatch<UserAction> }>({
 
     user: null,
@@ -21,7 +21,7 @@ export const AuthContext = createContext<{ user: UserObject | null, authReady: b
     },
 })
 
-//reducer for dispatch
+//reducer for dispatch --------- function for updating the state for different types-----------
 const authReducer = (state: UserState, action: UserAction) => {
     switch (action.type) {
         case "AUTH_READY":
@@ -37,7 +37,7 @@ const authReducer = (state: UserState, action: UserAction) => {
 
 
 
-
+// ----------initial state--------
 //context provider; its used in main.tsx
 export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, {
@@ -53,8 +53,6 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         })
 
     }, [])
-
-
 
 
     return (

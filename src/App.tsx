@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 //components
 import Home from "./pages/home/Home.js"
 import Login from "./pages/login/Login.jsx"
@@ -12,7 +12,7 @@ import { useAuthContext } from './hooks/useAuthContext.ts'
 function App() {
 
   // app loads after cheching the value of user and then changing the authReady to true -> loads the page
-  const { authReady } = useAuthContext()
+  const { authReady, user } = useAuthContext()
 
   return (
     <>
@@ -20,9 +20,9 @@ function App() {
         <BrowserRouter>
           <Navbar />
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+            <Route path="/" element={user ? <Home /> : <Navigate to="login" />} />
+            <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
+            <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
           </Routes>
         </BrowserRouter>
       )}

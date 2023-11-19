@@ -1,8 +1,7 @@
 import styles from "./Login.module.scss"
 import { useState } from "react"
 import { useLogin } from "../../hooks/useLogin"
-// import { useAuthContext } from "../../hooks/useAuthContext"
-// import { useNavigate } from "react-router-dom"
+
 
 export default function Login() {
     //state
@@ -11,19 +10,12 @@ export default function Login() {
 
     //hooks
     const { login, error, loading } = useLogin()
-    // const { user } = useAuthContext()
-
-    //route
-    // const navigate = useNavigate()
 
     //functions
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         login(email, password);
-        // if (user) {
-        //     navigate("/")
-        // }
     }
 
 
