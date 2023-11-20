@@ -8,8 +8,6 @@ export default function Navbar() {
     const { user } = useAuthContext()
     const { logout } = useLogout()
 
-
-
     return (
         <>
             <nav className={styles["navbar"]}>

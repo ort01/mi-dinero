@@ -44,7 +44,7 @@ export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({ childre
         user: null,
         authReady: false
     })
-    // console.log("auth context state:", state);
+    console.log("auth context state:", state);
 
     useEffect(() => { //checks if the user is logged in when you first load the page; after that we stop listening for "onAuthStateChanged" by calling unsub()
         const unsub = onAuthStateChanged(auth, (user) => { //we get the user object in callback
