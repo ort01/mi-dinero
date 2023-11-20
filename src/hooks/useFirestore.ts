@@ -54,7 +54,6 @@ export const useFirestore = (colName: string) => {
 
         try {
             const createdAt = timestamp()
-            console.log(createdAt);
 
             const addedDoc = await addDoc(colRef, { ...doc, createdAt })
             dispatchIfNotCancelled({ type: 'ADD_DOC', payload: addedDoc })
