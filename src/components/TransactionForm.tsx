@@ -12,7 +12,6 @@ export default function TransactionForm({ uid }: { uid: string | undefined }) {
     //hooks
     const { addDocument, firestoreState } = useFirestore('transactions')
 
-
     //functions
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()

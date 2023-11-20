@@ -1,3 +1,5 @@
+// -------------------- updating, adding, deleteing documents in a collection----------------
+
 import { useReducer, useState, useEffect } from "react"
 //firebase
 import { db, timestamp } from "../firebase/config"
