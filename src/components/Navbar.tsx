@@ -12,11 +12,11 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className={styles.navbar}>
+            <nav className={styles["navbar"]}>
                 <ul>
-                    <li className={styles.navbar__title}>
+                    <li className={styles["navbar__title"]}>
                         <Link to="/">
-                            <span className={`material-symbols-outlined ${styles.navbar__icon}`}>
+                            <span className={`material-symbols-outlined ${styles["navbar__icon"]}`}>
                                 paid
                             </span>
                             <div>
@@ -26,7 +26,7 @@ export default function Navbar() {
                     </li>
                     {user ?
                         <>
-                            <li>Hello, {user.displayName}</li>
+                            <li className={styles["navbar__user-name"]}>Hello, {user.displayName}</li>
                             <li>
                                 <Link to="/login" onClick={logout}>Logout</Link>
                             </li>

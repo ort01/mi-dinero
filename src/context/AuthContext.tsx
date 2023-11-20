@@ -6,7 +6,7 @@ import { onAuthStateChanged } from "firebase/auth";
 
 //interfaces
 import UserState from "../interfaces/UserState";
-import UserAction from "../interfaces/UserAction";
+import UserAction from "../interfaces/Action";
 import UserObject from "../interfaces/UserObject";
 
 

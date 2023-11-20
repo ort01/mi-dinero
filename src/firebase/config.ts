@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, serverTimestamp } from "firebase/firestore";
+
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyBvI0S52877svseLIJ4fB45_9A77auSDcY",
@@ -16,7 +18,8 @@ const app = initializeApp(firebaseConfig); // Initialize Firebase service
 
 const db = getFirestore(app); // Initialize Cloud Firestore and get a reference to the service
 const auth = getAuth(app) // Initialize Firebase Authentication and get a reference to the service
+const timestamp = serverTimestamp //timestamp -> use timestamp()
 
 
-export { db, auth }
+export { db, auth, timestamp }
 

@@ -1,6 +1,6 @@
 .navbar {
     width: 100%;
-    background: $color-dark-grey;
+    background: $color-grey-dark;
     padding: 20px 10px;
     box-sizing: border-box;
 
@@ -28,13 +28,13 @@
         align-items: center;
     }
 
-    & button,
     & a {
+        color: $color-green-light;
+        text-decoration: none;
         margin-left: 16px;
     }
 
-    & a {
-        color: $color-light-green;
-        text-decoration: none;
+    &__user-name {
+        color: $color-green-dark;
     }
 }

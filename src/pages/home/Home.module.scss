@@ -1,0 +1,23 @@
+.home {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    max-width: 960px;
+    margin: 60px auto;
+    color: $color-grey-dark;
+
+    &__content {
+        background-color: $color-green-dark;
+        padding-right: 30px;
+    }
+    &__sidebar {
+        padding-left: 30px;
+    }
+}
+
+// .sidebar aside {
+//     margin-top: 40px;
+//     color: #555;
+// }
+// .sidebar aside li {
+//     margin: 10px;
+// }
