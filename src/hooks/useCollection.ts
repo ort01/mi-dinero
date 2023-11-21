@@ -6,9 +6,13 @@ import { WhereFilterOp } from "firebase/firestore"
 
 //--------------------- subscribing to a real time data from a firestore collection --------------------
 
-export const useCollection = (colName: string, _query?: [string, WhereFilterOp, unknown?], _orderBy?: [string, OrderByDirection]) => {
-    const [documents, setDocuments] = useState<TransactionDoc[] | null>(null)
-    const [error, setError] = useState<null | string>(null)
+export const useCollection = (
+    colName: string,
+    _query?: [string, WhereFilterOp, unknown?],
+    _orderBy?: [string, OrderByDirection]
+) => {
+    const [documents, setDocuments] = useState<TransactionDoc[] | undefined>(undefined)
+    const [error, setError] = useState<string | undefined>(undefined)
 
     const queryRef = useRef(_query).current //if we dont use a ref -> infitine loop in useEffect; _query is an array and is "different" on every function call
     const orderByRef = useRef(_orderBy).current
@@ -22,6 +26,8 @@ export const useCollection = (colName: string, _query?: [string, WhereFilterOp, 
 
         if (orderByRef) {
             colRef = query(colRef, orderBy(...orderByRef))
+            console.log(colRef);
+
         }
 
         const unsub = onSnapshot(colRef, (snapshot) => {
@@ -35,10 +41,10 @@ export const useCollection = (colName: string, _query?: [string, WhereFilterOp, 
                     results.push({ id: doc.id, ...doc.data() } as TransactionDoc)
                 })
                 setDocuments(results)
-                setError(null)
+                setError(undefined)
 
             } else {
-                setError("Could now fetch data")
+                setError("Could not fetch data, no data to be shown")
             }
 
         }, (err) => {
