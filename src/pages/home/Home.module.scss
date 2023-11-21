@@ -7,6 +7,21 @@
 
     &__content {
         padding-right: 30px;
+
+        &--sum {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: flex-end;
+            text-transform: uppercase;
+            border-bottom: 3px solid rgba($color-grey-dark, 0.5);
+
+            & span {
+                font-size: 25px;
+                font-weight: bold;
+                color: $color-green-dark;
+            }
+        }
     }
     &__sidebar {
         padding-left: 30px;

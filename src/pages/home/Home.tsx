@@ -6,6 +6,7 @@ import TransactionList from "../../components/TransactionList"
 import { useAuthContext } from "../../hooks/useAuthContext"
 import { useCollection } from "../../hooks/useCollection"
 
+
 export default function Home() {
 
     const { user } = useAuthContext()
@@ -15,10 +16,29 @@ export default function Home() {
         ["createdAt", "desc"]
     )
 
+
+    const sum = () => {
+        const pricesArray = documents?.map((document) => Number(document.amount))
+
+        const sum = pricesArray?.reduce((accumulator, value) => {
+            return (accumulator + value);
+        }, 0);
+
+        return sum
+    }
+
+
+
     return (
         <>
             <div className={styles["home"]}>
                 <div className={styles["home__content"]}>
+                    {documents &&
+                        <div className={styles["home__content--sum"]}>
+                            <p>Total expenses:</p>
+                            <span>{sum()} €</span>
+                        </div>
+                    }
                     {error && <div>{error}</div>}
                     {documents && <TransactionList documents={documents} />}
                 </div>

@@ -54,6 +54,7 @@ export default function TransactionForm({ uid }: { uid: string | undefined }) {
                     <input
                         type="number"
                         required
+                        min="0"
                         onChange={(e) => { setAmount(e.target.value) }}
                         value={amount}
                     />

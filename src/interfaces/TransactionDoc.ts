@@ -1,5 +1,5 @@
 export default interface TransactionDoc {
-    id?: string
+    id?: string | undefined
     uid?: string | undefined
     name: string
     amount: number | string

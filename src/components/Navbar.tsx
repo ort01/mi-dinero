@@ -25,7 +25,7 @@ export default function Navbar() {
                     {user ?
                         <>
                             <li className={styles["navbar__user-name"]}>Hello, {user.displayName}</li>
-                            <li>
+                            <li className={styles["navbar__logout"]}>
                                 <Link to="/login" onClick={logout}>Logout</Link>
                             </li>
                         </>
