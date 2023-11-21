@@ -3,7 +3,7 @@ import styles from "./TransactionList.module.scss"
 import { useFirestore } from "../hooks/useFirestore"
 import deleteIcon from "../assets/delete.svg"
 
-export default function TransactionList({ documents }: { documents: TransactionDoc[] }) {
+export default function TransactionList({ documents: transactions }: { documents: TransactionDoc[] }) {
 
     const { deleteDocument } = useFirestore("transactions")
 
@@ -11,7 +11,7 @@ export default function TransactionList({ documents }: { documents: TransactionD
     return (
         <>
             <ul className={styles["transaction-list"]}>
-                {documents.map((transaction) => (
+                {transactions.map((transaction) => (
                     <li key={transaction.id}>
                         <p className={styles["transaction-list__name"]}>{transaction.name}</p>
                         <p className={styles["transaction-list__amount"]}>{transaction.amount} €</p>

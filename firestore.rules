@@ -1,0 +1,22 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /transactions/{document=**} {
+      //read - we make a request to fetch docs from the db
+      //write -  we make a request to  create, delete, update the docs from the db; wrtie === create, delete, update
+      
+      allow create: if request.auth != null; 
+      allow read, delete: if request.auth.uid == resource.data.uid
+
+    //---------request-------
+      // users auth token gets sent to the server on every request to the db, the user makes -> 
+      // request object has auth token of the user who sent the req on itself
+      // if someone makes a request to the db, it gets sent to the server and firebase can validate that token
+    //---------resource------
+      //resource = document the user is trying to fetch or delete
+      //.data = object with all the properties we gave it in useFirestore(addDocument)
+      // to read and delete logged in users uid must match the document uid; only the user who created the doc can read and delete it
+    }
+  }
+}
